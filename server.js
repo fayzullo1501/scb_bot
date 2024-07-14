@@ -16,7 +16,7 @@ const chatId = process.env.CHAT_ID; // Используем переменную
 let requestCounter = 0; // Переменная-счетчик для отслеживания количества заявок
 
 app.post("/submit-form", async (req, res) => {
-  const { name, phone, email, text } = req.body;
+  const { name, phone, email, company, text } = req.body;
 
   requestCounter++; // Увеличиваем счетчик при каждой новой заявке
 
@@ -25,6 +25,7 @@ app.post("/submit-form", async (req, res) => {
     Имя: ${name}
     Телефон: ${phone}
     E-mail: ${email}
+    Компания: ${company}
     Сообщение: ${text}
   `;
 
