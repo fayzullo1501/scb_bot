@@ -21,12 +21,12 @@ app.post("/submit-form", async (req, res) => {
   requestCounter++; // Увеличиваем счетчик при каждой новой заявке
 
   const message = `
-    Новая заявка № ${requestCounter}:
-    Имя: ${name}
-    Телефон: ${phone}
-    E-mail: ${email}
-    Компания: ${company}
-    Сообщение: ${text}
+Новая заявка № ${requestCounter}:
+Имя: ${name}
+Телефон: ${phone}
+E-mail: ${email}
+Компания: ${company}
+Сообщение: ${text}
   `;
 
   try {
