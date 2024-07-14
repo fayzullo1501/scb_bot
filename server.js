@@ -9,23 +9,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const token = "7022916702:AAFsD8Hwh06P-TDlBuVBb7-zPQyMTZ8QL20"; // Замените на новый токен
-const apiUrl = https://api.telegram.org/bot${token};
+const apiUrl = `https://api.telegram.org/bot${token}`;
 
 const chatId = "446415034"; // Замените на действительный chat_id
 
 app.post("/submit-form", async (req, res) => {
   const { name, phone, email, text } = req.body;
 
-  const message = 
+  const message = `
     Новая заявка от клиента:
     Имя: ${name}
     Телефон: ${phone}
     E-mail: ${email}
     Сообщение: ${text}
-  ;
+  `;
 
   try {
-    const url = ${apiUrl}/sendMessage;
+    const url = `${apiUrl}/sendMessage`;
 
     await axios.post(url, {
       chat_id: chatId,
@@ -43,5 +43,5 @@ app.post("/submit-form", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(Сервер запущен на http://localhost:${port});
+  console.log(`Сервер запущен на http://localhost:${port}`);
 });
