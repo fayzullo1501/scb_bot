@@ -8,16 +8,20 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const token = "7022916702:AAFsD8Hwh06P-TDlBuVBb7-zPQyMTZ8QL20"; // Замените на новый токен
+const token = process.env.TOKEN; // Используем переменную окружения для токена
 const apiUrl = `https://api.telegram.org/bot${token}`;
 
-const chatId = "446415034"; // Замените на действительный chat_id
+const chatId = process.env.CHAT_ID; // Используем переменную окружения для chat_id
+
+let requestCounter = 0; // Переменная-счетчик для отслеживания количества заявок
 
 app.post("/submit-form", async (req, res) => {
   const { name, phone, email, text } = req.body;
 
+  requestCounter++; // Увеличиваем счетчик при каждой новой заявке
+
   const message = `
-    Новая заявка от клиента:
+    Новая заявка № ${requestCounter}:
     Имя: ${name}
     Телефон: ${phone}
     E-mail: ${email}
