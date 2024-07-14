@@ -36,7 +36,7 @@ app.post("/submit-form", async (req, res) => {
       text: message,
     });
 
-    res.status(200).send("Заявка отправлена в Telegram");
+    res.status(200).send("Заявка успешно отправлена");
   } catch (error) {
     console.error(
       "Ошибка при отправке сообщения в Telegram:",
