@@ -1,3 +1,5 @@
+// 446415034  6498144305  7022916702:AAFsD8Hwh06P-TDlBuVBb7-zPQyMTZ8QL20
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
@@ -8,10 +10,21 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const token = process.env.TOKEN; // Используем переменную окружения для токена
+// Добавление заголовков CORS
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+  next();
+});
+
+const token = '7022916702:AAFsD8Hwh06P-TDlBuVBb7-zPQyMTZ8QL20'; // Установите здесь ваш токен
 const apiUrl = `https://api.telegram.org/bot${token}`;
 
-const chatId = process.env.CHAT_ID; // Используем переменную окружения для chat_id
+const chatIds = ['446415034', '6498144305']; // Обновите здесь ваши chat ID
 
 let requestCounter = 0; // Переменная-счетчик для отслеживания количества заявок
 
@@ -32,10 +45,16 @@ E-mail: ${email}
   try {
     const url = `${apiUrl}/sendMessage`;
 
-    await axios.post(url, {
-      chat_id: chatId,
-      text: message,
-    });
+    console.log('Отправка сообщения в Telegram:', message);
+
+    // Отправляем сообщение в каждый указанный chat ID
+    for (const chatId of chatIds) {
+      const response = await axios.post(url, {
+        chat_id: chatId,
+        text: message,
+      });
+      console.log(`Сообщение успешно отправлено в чат ${chatId}:`, response.data);
+    }
 
     res.status(200).send("Заявка успешно отправлена");
   } catch (error) {
