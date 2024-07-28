@@ -1,10 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
+const cors = require("cors");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; // Railway использует переменную окружения PORT
 
+app.use(cors()); // Добавляем эту строку для разрешения CORS
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
